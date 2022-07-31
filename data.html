@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add data</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .image_input {
+            margin: auto;
+            width: 350px;
+            height: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="image_input">
+        <input type="url" placeholder="URL" id="img_url">
+        <button class="submit">Submit</button>
+    </div>
+</body>
+
+</html>
+<script>
+
+    let catchElem = (val) => {
+        return document.querySelector(val);
+    }
+
+    let img_data = JSON.parse(localStorage.getItem('images')) || [];
+
+    let storeData = () => {
+
+        let data = { image_url: catchElem('#img_url').value };
+
+        if (data.image_url === '') {
+
+            alert('Enter valid URL!');
+        }
+        else {
+
+            img_data.push(data);
+
+            localStorage.setItem('images', JSON.stringify(img_data));
+
+        }
+        data.image_url = null;
+    }
+
+    catchElem('.submit').addEventListener('click', storeData);
+
+
+</script>
