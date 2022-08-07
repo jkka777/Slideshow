@@ -25,7 +25,9 @@ let slideShow = () => {
 };
 
 let showPrevious = () => {
+
     clearInterval(x);
+
     if (i === 0) {
         i = img_data.length - 1;
     }
@@ -33,6 +35,7 @@ let showPrevious = () => {
     img.src = img_data[i].image_url;
     i--;
     cont.append(img);
+
 };
 
 let showNext = () => {
@@ -46,18 +49,31 @@ let showNext = () => {
     cont.append(img);
 };
 
-let startTheSlide = () => {
-    slideShow();
+const start = document.querySelector('.start');
+
+function startTheSlide() {
+
+    start.removeEventListener('click', startTheSlide);
+
+    start.addEventListener('click', stopTheSlide);
+
+    clearInterval(x);
+
 };
 
-let stopTheSlide = () => {
-    clearInterval(x);
+startTheSlide();
+
+function stopTheSlide() {
+
+    start.removeEventListener('click', stopTheSlide);
+
+    start.addEventListener('click', startTheSlide);
+
+    slideShow()
 };
 
 document.querySelector('.lft_btn').addEventListener('click', showPrevious);
 
 document.querySelector('.rgt_btn').addEventListener('click', showNext);
 
-document.querySelector('.start').addEventListener('click', startTheSlide);
 
-document.querySelector('.stop').addEventListener('click', stopTheSlide);
